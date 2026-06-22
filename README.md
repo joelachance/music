@@ -27,3 +27,5 @@ make spotify-check
 macOS will ask once for permission to let MiniSpotify control Spotify.
 
 MiniSpotify launches Spotify hidden when it needs playback and then returns focus to itself. Running `make run` without a track does not launch Spotify.
+
+GX smoke test 2026-06-22T12:25:23Z
