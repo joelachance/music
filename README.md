@@ -28,4 +28,4 @@ macOS will ask once for permission to let MiniSpotify control Spotify.
 
 MiniSpotify launches Spotify hidden when it needs playback and then returns focus to itself. Running `make run` without a track does not launch Spotify.
 
-GX review context smoke test: publish artifact and comment chat should describe this README update.
+GX review context smoke test follow-up: this line verifies the fixed artifact upload client.
