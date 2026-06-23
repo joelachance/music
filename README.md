@@ -4,6 +4,8 @@ A tiny native macOS Spotify controller. The app shows the current album artwork,
 
 This controls the installed Spotify desktop app with macOS Apple Events. Spotify must be installed and logged in.
 
+This README change is a GX publish smoke test for GitHub PR comments.
+
 ## Commands
 
 ```sh
@@ -27,5 +29,3 @@ make spotify-check
 macOS will ask once for permission to let MiniSpotify control Spotify.
 
 MiniSpotify launches Spotify hidden when it needs playback and then returns focus to itself. Running `make run` without a track does not launch Spotify.
-
-GX smoke test 2026-06-22T12:25:23Z
