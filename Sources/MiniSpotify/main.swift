@@ -219,6 +219,16 @@ final class SpotifyPlayer: ObservableObject {
             play track \(AppleScriptLiteral.string(uri))\(contextClause)
         end tell
         """)
+
+        if options.startPaused {
+            try? await Task.sleep(for: .milliseconds(250))
+            _ = try? SpotifyAppleScript.run("""
+            tell application id "\(SpotifyApplication.bundleIdentifier)"
+                pause
+            end tell
+            """)
+        }
+
         SpotifyApplication.keepInBackground()
     }
 

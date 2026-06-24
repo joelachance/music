@@ -13,10 +13,12 @@ public enum AppleScriptLiteral {
 public struct LaunchOptions: Equatable {
     public let trackURI: String?
     public let contextURI: String?
+    public let startPaused: Bool
 
-    public init(trackURI: String?, contextURI: String?) {
+    public init(trackURI: String?, contextURI: String?, startPaused: Bool = false) {
         self.trackURI = trackURI
         self.contextURI = contextURI
+        self.startPaused = startPaused
     }
 
     public static func parse(
@@ -25,7 +27,8 @@ public struct LaunchOptions: Equatable {
     ) -> LaunchOptions {
         LaunchOptions(
             trackURI: value(named: "--track-uri", in: arguments) ?? nonEmpty(environment["SPOTIFY_TRACK_URI"]),
-            contextURI: value(named: "--context-uri", in: arguments) ?? nonEmpty(environment["SPOTIFY_CONTEXT_URI"])
+            contextURI: value(named: "--context-uri", in: arguments) ?? nonEmpty(environment["SPOTIFY_CONTEXT_URI"]),
+            startPaused: flag(named: "--start-paused", in: arguments) || truthy(environment["SPOTIFY_START_PAUSED"])
         )
     }
 
@@ -38,6 +41,10 @@ public struct LaunchOptions: Equatable {
         return nonEmpty(arguments[arguments.index(after: index)])
     }
 
+    private static func flag(named name: String, in arguments: [String]) -> Bool {
+        arguments.contains(name)
+    }
+
     private static func nonEmpty(_ value: String?) -> String? {
         guard let value = value?.trimmingCharacters(in: .whitespacesAndNewlines),
               !value.isEmpty else {
@@ -45,5 +52,14 @@ public struct LaunchOptions: Equatable {
         }
 
         return value
+    }
+
+    private static func truthy(_ value: String?) -> Bool {
+        switch value?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "1", "true", "yes", "on":
+            return true
+        default:
+            return false
+        }
     }
 }

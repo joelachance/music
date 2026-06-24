@@ -2,7 +2,7 @@ APP_NAME := MiniSpotify
 APP_DIR := .build/$(APP_NAME).app
 EXECUTABLE := .build/release/$(APP_NAME)
 
-.PHONY: build bundle run run-track test spotify-check stop clean
+.PHONY: build bundle run run-track run-track-paused test spotify-check stop clean
 
 build:
 	swift build -c release
@@ -21,6 +21,10 @@ run: bundle
 run-track: bundle
 	@test -n "$(TRACK_URI)" || (echo 'Usage: make run-track TRACK_URI=spotify:track:2IClzYyvgwrsmVVipYsx5T' && exit 1)
 	open -n "$(APP_DIR)" --args --track-uri "$(TRACK_URI)" $(if $(CONTEXT_URI),--context-uri "$(CONTEXT_URI)",)
+
+run-track-paused: bundle
+	@test -n "$(TRACK_URI)" || (echo 'Usage: make run-track-paused TRACK_URI=spotify:track:2IClzYyvgwrsmVVipYsx5T' && exit 1)
+	open -n "$(APP_DIR)" --args --track-uri "$(TRACK_URI)" --start-paused $(if $(CONTEXT_URI),--context-uri "$(CONTEXT_URI)",)
 
 test:
 	swift run MiniSpotifyChecks
