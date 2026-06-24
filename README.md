@@ -28,4 +28,8 @@ macOS will ask once for permission to let MiniSpotify control Spotify.
 
 MiniSpotify launches Spotify hidden when it needs playback and then returns focus to itself. Running `make run` without a track does not launch Spotify.
 
-GX menubar rebuild smoke test: the packaged app installed the CLI and published this README update.
+## Automation permissions
+
+MiniSpotify needs macOS Automation access so it can send Apple Events to Spotify. If playback controls do not respond after the first launch, open System Settings, go to Privacy & Security, then Automation, and make sure MiniSpotify is allowed to control Spotify.
+
+After changing the permission, run `make stop` and `make run` so the app starts with the updated automation grant.
